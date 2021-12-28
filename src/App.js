@@ -10,8 +10,8 @@ import {
 import {NotFound} from "./pages/NotFound";
 import {routes} from "./routes/route";
 
-function App() {
 
+function App() {
     return (
         <div className="App">
             <Router>

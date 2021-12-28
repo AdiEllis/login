@@ -1,21 +1,28 @@
-export const users = [
-    {userId: 1, username: "adi", password: "123"},
-    {userId: 2, username: "snir", password: "1234"},
-]
+import Cookies from 'universal-cookie';
+import axios from "axios";
 
-export const products = [
-    {name: "bamba", userId: 1},
-    {name: "bisli", userId: 2}
-]
-
-export const checkLogin = (username, password) => {
-    let logged = false
-    users.map(user => {
-        if (username == user.username) {
-            if (password == user.password) {
-                logged = true
+const isLogged = () => {
+    const cookies = new Cookies();
+    let results = false;
+    if (cookies.get("username") !== "" &&
+        cookies.get("username") != null &&
+        cookies.get("token") !== "" &&
+        cookies.get("token") != null) {
+        axios.post("http://localhost:8080/demo/verifyLogin", {}, {
+            params: {
+                username: cookies.get("username"),
+                token: cookies.get("token")
             }
-        }
-        return logged
-    })
-}
+        }).then((response) => {
+            if (response.data === cookies.get("token")) {
+                results = true;
+            }
+        }).catch((e) => {
+            console.log("error occur.")
+        })
+    }
+    return results;
+};
+
+
+export default isLogged
