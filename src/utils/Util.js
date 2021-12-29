@@ -3,7 +3,7 @@ import axios from "axios";
 
 const isLogged = () => {
     const cookies = new Cookies();
-    let results = false;
+    let results = false
     if (cookies.get("username") !== "" &&
         cookies.get("username") != null &&
         cookies.get("token") !== "" &&
@@ -15,12 +15,13 @@ const isLogged = () => {
             }
         }).then((response) => {
             if (response.data === cookies.get("token")) {
-                results = true;
+                results = true
             }
         }).catch((e) => {
             console.log("error occur.")
         })
     }
+    console.log(results)
     return results;
 };
 
